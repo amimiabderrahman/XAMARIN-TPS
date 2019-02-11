@@ -1,0 +1,68 @@
+//la classe listview adapter:
+class listview_adapter : BaseAdapter
+    {
+        List<stagiaires> liste;
+        Activity a;
+        public listview_adapter(Activity context, List<stagiaires> liste)
+        {
+            this.a = context;
+            this.liste = liste;
+        }
+        public override int Count => liste.Count;
+
+        public override Java.Lang.Object GetItem(int position)
+        {
+            return position;
+        }
+
+        public override long GetItemId(int position)
+        {
+            return position;
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            var item = liste[position];
+            View v = convertView;
+            v =a.LayoutInflater.Inflate(Resource.Layout.layout1, null);
+            v.FindViewById<TextView>(Resource.Id.textView1).Text = item.num.ToString();
+            v.FindViewById<TextView>(Resource.Id.textView2).Text = item.nom;
+            v.FindViewById<TextView>(Resource.Id.textView3).Text = item.prenom;
+            return v;
+
+
+        }
+       la classe MainActivity:
+        SetContentView(Resource.Layout.Main);
+            ListView ls = FindViewById<ListView>(Resource.Id.listView1);
+            liste = new List<stagiaires>();
+            liste.Add(new stagiaires(1, "a", "b"));
+            liste.Add(new stagiaires(2, "a", "b"));
+            liste.Add(new stagiaires(3, "a", "b"));
+            liste.Add(new stagiaires(4, "a", "b"));
+            liste.Add(new stagiaires(5, "a", "b"));
+            liste.Add(new stagiaires(6, "a", "b"));
+            ls.Adapter = new listview_adapter(this, liste);
+
+            ls.ItemClick += afficher;
+            SetContentView(Resource.Layout.Main);
+            ListView ls = FindViewById<ListView>(Resource.Id.listView1);
+            liste = new List<stagiaires>();
+            liste.Add(new stagiaires(1, "a", "b"));
+            liste.Add(new stagiaires(2, "a", "b"));
+            liste.Add(new stagiaires(3, "a", "b"));
+            liste.Add(new stagiaires(4, "a", "b"));
+            liste.Add(new stagiaires(5, "a", "b"));
+            liste.Add(new stagiaires(6, "a", "b"));
+            ls.Adapter = new listview_adapter(this, liste);
+
+            ls.ItemClick += afficher;
+        }
+
+        private void afficher(object sender, AdapterView.ItemClickEventArgs e)
+        {
+           // var ls = sender as ListView;
+            var t = liste[e.Position];
+            Toast.MakeText(this, t.num.ToString(), ToastLength.Short).Show();
+
+        }
