@@ -10,4 +10,101 @@
     android:stretchMode="columnWidth"
     android:gravity="center"
 />
+///
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:id="@+id/imageView1"
+        android:adjustViewBounds="true" />
+</LinearLayout>
+//
+ class Listview_adapter : BaseAdapter
+    {
+        List<images> liste;
+        Activity a;
+        public Listview_adapter(List<images> liste, Activity a)
+        {
+            this.liste = liste;
+            this.a = a;
+        }
+        public override int Count => liste.Count;
+
+        public override Java.Lang.Object GetItem(int position)
+        {
+            return position;
+        }
+
+        public override long GetItemId(int position)
+        {
+            return position;
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            var t = liste[position];
+            View v = convertView;
+            v = a.LayoutInflater.Inflate(Resource.Layout.layout1, null);
+            v.FindViewById<ImageView>(Resource.Id.imageView1).SetImageResource(t.id);
+            return v;
+        }
+    }
+            //
+            List<images> liste;
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Set our view from the "main" layout resource
+            SetContentView(Resource.Layout.Main);
+            GridView ls = FindViewById<GridView>(Resource.Id.listView1);
+           liste = new List<images>();
+            liste.Add(new images(Resource.Mipmap.sample_0));
+            liste.Add(new images(Resource.Mipmap.sample_1));
+            liste.Add(new images(Resource.Mipmap.sample_2));
+            liste.Add(new images(Resource.Mipmap.sample_3));
+            liste.Add(new images(Resource.Mipmap.sample_4));
+            liste.Add(new images(Resource.Mipmap.sample_5));
+            liste.Add(new images(Resource.Mipmap.sample_6));
+            liste.Add(new images(Resource.Mipmap.sample_7));
+            liste.Add(new images(Resource.Mipmap.sample_0));
+            liste.Add(new images(Resource.Mipmap.sample_1));
+            liste.Add(new images(Resource.Mipmap.sample_2));
+            liste.Add(new images(Resource.Mipmap.sample_3));
+            liste.Add(new images(Resource.Mipmap.sample_4));
+            liste.Add(new images(Resource.Mipmap.sample_5));
+            liste.Add(new images(Resource.Mipmap.sample_6));
+            liste.Add(new images(Resource.Mipmap.sample_7));
+            ls.Adapter = new Listview_adapter(liste, this);
+            ls.ItemClick += afficher;
+
+        }
+
+        private void afficher(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var t = liste[e.Position];
+            View v = LayoutInflater.Inflate(Resource.Layout.layout1, null);
+            v.FindViewById<ImageView>(Resource.Id.imageView1).SetImageResource(t.id);
+            Toast x = new Toast(this);
+            x.View = v;
+            x.Duration = ToastLength.Long;
+            x.SetGravity(GravityFlags.Top, 250, 350);
+            x.Show();
+        }
+    }
+            //
+            
+            class images
+    {
+       public int id;
+        public images(int id)
+        { this.id = id; }
+    }
 
